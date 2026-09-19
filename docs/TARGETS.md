@@ -60,22 +60,32 @@ Of the 1,022-problem bank (as of 2026-09-20):
 
 ## Candidate assessments
 
-### `JSP-001021` — Erdős Problem 1216 *(promoted: best next target)*
+### `JSP-001021` — Erdős Problem 1216 *(demoted after inspection)*
 
 *How large a transitive subtournament must every tournament of prescribed order
-contain?* Erdős–Moser conjectured `f(n) = ⌊log₂ n⌋ + 1`; **Reid & Parker (1970)
-disproved it**, showing a tournament of order 13 with **no transitive
-subtournament of order 5**, and that every tournament of order 14 does contain
-one.
+contain?* Erdős–Moser conjectured `f(n) = ⌊log₂ n⌋ + 1`; Reid & Parker (1970)
+disproved it.
 
-- Shape: **finite counterexample** — a 13-vertex tournament plus a check over the
-  `C(13,5) = 1287` five-vertex subsets.
-- Existing formalization: **none found** — `google-deepmind/formal-conjectures`
-  has no `ErdosProblems/1216.lean`, and the Erdős Problems page lists the
-  statement as not yet formalized.
-- Cost: moderate — needs the tournament and transitivity definitions (cheap),
-  then a finite check. The main unknown is obtaining the explicit 13-vertex
-  adjacency from Reid–Parker.
+**The counterexample half is cheap and is done.** A tournament on 13 vertices
+with no transitive subtournament of order 5 was computed with a SAT encoding and
+verified (`experiments/tournament13.json`, generator `tools/sat_tournament.py`):
+every vertex has out-degree 6 and all `C(13,5) = 1287` five-subsets span a
+directed triangle.
+
+**The result is not complete without the matching bound**, and that is the
+expensive half: the disproof needs `R(5) = 14`, i.e. *every* tournament on 14
+vertices has a transitive subtournament of order 5. That is a finite-exhaustive
+statement over `2^91` tournaments; it is not a small check and not obviously
+formalizable from current mathlib. Verdict: **not a cheap target.**
+
+### ⚠ Lesson learned (recorded so it is not repeated)
+
+**"Refutation-shaped" does not mean cheap.** A refutation of a universal claim
+usually also needs the *matching upper bound* to resolve the problem as stated,
+and that bound can be the expensive part — exactly what happened here. A cheap
+target must have its **entire recorded resolution** be a small finite
+verification, not just its witness. Both `JSP-001021` and `JSP-000434` failed
+this test after the first pass had promoted them.
 
 ### `JSP-000288` — Erdős Problem 346 *(demoted)*
 
