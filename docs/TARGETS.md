@@ -105,12 +105,46 @@ Golden-ratio ratio limit for minimal stably complete sequences.
 - Resolution is an **asymptotic lower bound** `f(p) ≥ log₂p + (1/(2log2)+o(1))loglog p`
   (Ma & Tang). Not a finite counterexample; expensive to formalize.
 
-### Other refutation-shaped entries (unverified)
+### `JSP-000465` — Erdős–Simonovits compactness *(demoted after reading the source)*
 
-`JSP-000465` (Turán counterexample, internal OpenAI model), `JSP-000398`
-(uniform-distribution disproof, Sc69), `JSP-000788` (Ramsey negative answer),
-`JSP-001007` (residue-class negative answer), `JSP-000490` (no uniform colour
-bound), `JSP-001000`, `JSP-000383`. Each needs the same manual pass.
+Checked against the primary source (OpenAI, *Ten Proofs*, Chapter 10). The
+counterexample is a **finite family of connected bipartite graphs** with
+
+```
+ex(n, F) = O(n^{4/3 − 1/48})   but   ex(n, F) = Ω(n^{4/3}) for every F ∈ F,
+```
+
+disproving the compactness conjecture. The proof is an **asymptotic extremal
+construction** built from entropy inequalities, generalised quadrangles, layered
+graphs and a sampled Hamming-ball graph. Not a small finite verification →
+expensive. (The same chapter also disproves Erdős's degeneracy conjecture with
+`ex(n, H) ≥ c n^{3/2+ε}` for a fixed 2-degenerate bipartite `H`.)
+
+### ⚠ Structural finding: "counterexample" in this bank usually means "asymptotic construction"
+
+Three separate targets that a keyword pass flagged as *refutation-shaped* turned
+out, on inspection, to be expensive:
+
+| Target | What the "counterexample" actually is |
+| --- | --- |
+| `JSP-001021` | a small witness, **plus** the matching bound `R(5)=14` over `2^91` tournaments |
+| `JSP-000434` | an asymptotic analytic lower bound over `𝔽_p` |
+| `JSP-000465` | an asymptotic extremal-graph construction |
+
+`JSP-000301` was cheap for a specific reason: the question is a yes/no question
+about **two concrete integers**, so the entire obligation is a finite
+verification of small data. **That, not "refutation shape", is the real
+criterion.** The remaining unfiltered entries (`JSP-000398`, `JSP-000788`,
+`JSP-001007`, `JSP-000490`, `JSP-001000`, `JSP-000383`) must each be checked
+against the primary source before any work starts.
+
+### Where the next target should come from
+
+Rather than trusting the keyword triage, scan for problems whose **entire
+recorded resolution is a finite verification of explicit small data** — e.g. a
+yes/no question answered by exhibiting one small integer, polynomial, matrix or
+finite configuration, with no accompanying asymptotic or matching-bound claim.
+`JSP-000301` is the template.
 
 ## Long term
 
