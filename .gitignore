@@ -1,0 +1,9 @@
+.lake/
+build/
+*.olean
+*.ilean
+*.c
+*.trace
+__pycache__/
+runs/
+residue/

@@ -1,0 +1,10 @@
+{
+  "id": "JSP-000301",
+  "problem_source": "https://github.com/TheJustinSunPrize/awards/blob/main/problems/catalog-0301-0400.md#JSP-000301",
+  "intended_statement": "If two consecutive positive integers are powerful, must at least one be a perfect square? (Resolution: No; witness 12167 = 23^3 and 12168 = 2^3*3^2*13^2, consecutive, both powerful, neither a square.)",
+  "project_root": "E:/proofsmith",
+  "module": "Proofsmith",
+  "source_file": "Proofsmith/JSP000301.lean",
+  "declaration": "JSP000301.jsp_000301",
+  "toolchain": "leanprover/lean4:v4.35.0-rc2"
+}

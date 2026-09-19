@@ -1,0 +1,4 @@
+{
+  "note": "Sealed hold-out targets (RSI rule 2). The driver will never auto-accept these; they require the separate semantic review step. Kept empty until a search campaign needs a blind evaluation set.",
+  "sealed": []
+}

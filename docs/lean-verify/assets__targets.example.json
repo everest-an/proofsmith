@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "project": {
+    "root": "/absolute/path/to/isolated/project",
+    "repository": "https://github.com/OWNER/REPO",
+    "commit": "REPLACE_WITH_40_HEX_COMMIT",
+    "toolchain": "REPLACE_WITH_EXACT_LEAN_TOOLCHAIN"
+  },
+  "problems": [
+    {
+      "id": "erdos-N",
+      "source": "https://www.erdosproblems.com/N",
+      "requirements": [
+        {
+          "id": "main",
+          "description": "用原题精确要求替换；逐项补齐所有范围与子问题",
+          "targets": [
+            "main",
+            "bridge"
+          ],
+          "coverage": "pending"
+        }
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "id": "main",
+      "problem": "erdos-N",
+      "role": "theorem",
+      "module": "Submission.Main",
+      "source": "Submission/Main.lean",
+      "declaration": "Submission.mainTheorem"
+    },
+    {
+      "id": "bridge",
+      "problem": "erdos-N",
+      "role": "bridge",
+      "module": "AuditBridge",
+      "source": "AuditBridge.lean",
+      "declaration": "AuditBridge.intended"
+    }
+  ]
+}

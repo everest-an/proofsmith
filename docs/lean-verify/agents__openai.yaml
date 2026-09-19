@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lean 证明独立验证"
+  short_description: "核验 awards PR 或 Erdős 题目的 Lean 证明，固定版本并输出中文证据报告"
+  default_prompt: "使用 $lean-verify 核验这个 awards PR、Erdős 题目或指定 Lean 提交：固定原题与源码版本，建立目标清单，核对语义及完整性，在隔离环境复现并保存中文报告。"
