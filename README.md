@@ -45,6 +45,7 @@ pipeline/
 reports/               one verification report per formalized problem
 docs/
   METHODOLOGY.md       how the loop works, mapped to the RSI rules
+  TARGETS.md           how targets are picked + the current ranked shortlist
   lean-verify/         a copy of the Prize's own pre-submission audit skill
 ```
 
