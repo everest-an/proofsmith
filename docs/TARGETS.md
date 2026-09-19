@@ -134,17 +134,34 @@ out, on inspection, to be expensive:
 `JSP-000301` was cheap for a specific reason: the question is a yes/no question
 about **two concrete integers**, so the entire obligation is a finite
 verification of small data. **That, not "refutation shape", is the real
-criterion.** The remaining unfiltered entries (`JSP-000398`, `JSP-000788`,
-`JSP-001007`, `JSP-000490`, `JSP-001000`, `JSP-000383`) must each be checked
-against the primary source before any work starts.
+criterion.**
+
+### 🚨 The catalog paraphrase drops quantifiers — always read the original source
+
+`JSP-000307` is the clearest example so far. The bank says:
+
+> *"Can three consecutive integers have strictly decreasing largest prime factors?"*
+
+which reads like an existence question answerable by one example. The original
+problem — **Erdős Problem 372** — actually asks:
+
+> *"There are **infinitely many** n such that `P(n) > P(n+1) > P(n+2)`."*
+
+and the recorded resolution (Balog 2001) is an **asymptotic lower bound**:
+`≫ √x` such `n ≤ x`. So the single small witness `13, 14, 15`
+(`P = 13, 7, 5`) proves nothing about the actual problem.
+
+**Consequence:** the bank's one-line `Problem description` cannot be used for
+cost triage. Every candidate must be checked against the original source
+(`erdosproblems.com`, or the cited paper) before any formalization work starts.
 
 ### Where the next target should come from
 
-Rather than trusting the keyword triage, scan for problems whose **entire
-recorded resolution is a finite verification of explicit small data** — e.g. a
-yes/no question answered by exhibiting one small integer, polynomial, matrix or
-finite configuration, with no accompanying asymptotic or matching-bound claim.
-`JSP-000301` is the template.
+Rather than trusting the catalog paraphrase, verify against the original source
+that the **entire recorded resolution is a finite verification of explicit small
+data** — no "infinitely many", no "for sufficiently large", no matching bound.
+`JSP-000301` is the template; `JSP-000307` is the near-miss that shows how easily
+the paraphrase hides the real quantifier.
 
 ## Long term
 
