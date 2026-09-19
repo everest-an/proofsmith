@@ -17,16 +17,28 @@ formalizations through the kernel rather than one speculative expensive one.
 
 | Signal | Why it matters |
 | --- | --- |
-| **Statement already formalized** | the only thing missing is the proof — the single biggest shortcut |
-| **Refutation shape** | a universal claim killed by one counterexample is the cheapest possible obligation (this is why `JSP-000301` was first) |
-| **Finite / construction** | an explicit object to verify beats a general theorem |
-| **Area** | elementary number theory / combinatorics formalize far more cheaply than analysis, geometry or set theory |
+| **No existing public formalization** | the formalizer column goes to the first complete proof; an existing public attempt means the slot may be gone |
+| **Statement already formalized** | only the proof is missing — a large shortcut *when* the formalized statement matches the recorded resolution |
+| **Refutation shape** | a universal claim killed by one counterexample is the cheapest obligation (why `JSP-000301` was first) |
+| **Finite witness** | an explicit small object to check beats a general theorem |
+| **Area** | elementary number theory / combinatorics formalize far more cheaply than analysis or geometry |
 
-Triage is mechanical (see the pipeline scripts in the working repo) and is a
-**keyword heuristic**, not a feasibility proof. Every shortlisted target still
-needs a per-problem check of: (a) is the statement formalizable with current
-mathlib, (b) is the recorded resolution a complete proof/disproof, (c) what is
-the shortest faithful statement.
+### ⚠ Triage is a heuristic, not a verdict
+
+The cost classifier is **keyword-based and demonstrably wrong sometimes**. Two
+confirmed false positives from the first pass:
+
+- `JSP-000434` was classed *refutation* but is really **Erdős Problem 543**, whose
+  resolution (Ma–Tang, arXiv:2602.05768) is an **asymptotic analytic bound over
+  `𝔽_p`** — expensive, not a finite counterexample.
+- `JSP-000288` was ranked first because its statement is formalized, but a public
+  formalization attempt already exists (see below) and the problem has two
+  competing readings.
+
+**Every target therefore requires a manual feasibility pass**: (a) does an
+existing public Lean proof exist; (b) is the recorded resolution finite /
+explicit or asymptotic; (c) does the formalized statement, if any, actually
+match the recorded resolution.
 
 ## The pool
 
@@ -40,56 +52,58 @@ Of the 1,022-problem bank (as of 2026-09-20):
 | solved **and** Lean-formalized (eligible to claim) | 66 |
 | **solved but not formalized** ← our pool | **287** |
 
-Cost classes inside the pool:
-
-| Class | Count | Meaning |
-| --- | --- | --- |
-| refutation | 10 | one counterexample/disproof settles it |
-| finite | 7 | a concrete finite verification |
-| construction | 7 | exhibit an object with stated properties |
-| proof | 263 | a general theorem |
-
-Only **one** problem in the pool has a formally recorded *statement*:
-`JSP-000288`.
-
 ## Status
 
 | Problem | Result | Verdict |
 | --- | --- | --- |
 | `JSP-000301` | ✅ formalized, `standard_axioms_only` | [report](../reports/JSP-000301.md) · [PR #1959](https://github.com/TheJustinSunPrize/awards/pull/1959) |
 
-## Next batch (ranked)
+## Candidate assessments
 
-1. **`JSP-000288`** — *must ratios of consecutive terms in the minimal stably
-   complete sequences converge to the golden ratio?* Resolution: counterexample
-   (GPT Pro, prompted by Liam Price). **Statement already formalized** → only the
-   proof is missing. Cheapest target in the pool.
-2. **`JSP-001021`** — *how large a transitive subtournament must every tournament
-   contain?* The Erdős–Moser conjecture, **disproved by Reid & Parker (1970)** —
-   a classical finite counterexample. Finite graph check.
-3. **`JSP-000434`** — random elements of a finite abelian group whose subset sums
-   cover it; proposed stronger bound **disproved**. Finite abelian groups.
-4. **`JSP-000465`** — Turán extremal problem; **counterexample** for a finite
-   family of connected bipartite graphs (internal OpenAI model). Finite graph family.
-5. **`JSP-000398`** — uniform distribution of scaled integers in the gaps;
-   resolution is a **disproof** (Sc69). Needs the statement built carefully.
-6. **`JSP-000788`** — finite colouring / sparse sequence whose subset sums omit a
-   colour; **negative answer** (GPT Pro). Ramsey-type.
-7. **`JSP-001007`** — integers avoiding about half the residue classes modulo each
-   of several primes; **negative answer** (Price & GPT-5.4 Pro).
-8. **`JSP-000490`** — colouring countably infinite sets with pairwise intersections
-   never of size two; **no uniform colour bound** (GPT-5.4 Pro).
-9. **`JSP-001000`** — growth of the measure of a real set with no integer ratio of
-   distinct elements; integral criterion (Suan & GPT).
-10. **`JSP-000383`** — generating infinitely many primes from a prime set; finite
-    existence argument (Mrazović–Kovač; independently Alon).
+### `JSP-001021` — Erdős Problem 1216 *(promoted: best next target)*
 
-Each entry still needs the per-problem feasibility check above before work starts.
+*How large a transitive subtournament must every tournament of prescribed order
+contain?* Erdős–Moser conjectured `f(n) = ⌊log₂ n⌋ + 1`; **Reid & Parker (1970)
+disproved it**, showing a tournament of order 13 with **no transitive
+subtournament of order 5**, and that every tournament of order 14 does contain
+one.
+
+- Shape: **finite counterexample** — a 13-vertex tournament plus a check over the
+  `C(13,5) = 1287` five-vertex subsets.
+- Existing formalization: **none found** — `google-deepmind/formal-conjectures`
+  has no `ErdosProblems/1216.lean`, and the Erdős Problems page lists the
+  statement as not yet formalized.
+- Cost: moderate — needs the tournament and transitivity definitions (cheap),
+  then a finite check. The main unknown is obtaining the explicit 13-vertex
+  adjacency from Reid–Parker.
+
+### `JSP-000288` — Erdős Problem 346 *(demoted)*
+
+Golden-ratio ratio limit for minimal stably complete sequences.
+
+- Statement **is** formalized (`formal-conjectures/ErdosProblems/346.lean`), but
+  the problem has two readings (does convergence *follow*, or is a limit
+  *assumed*?) and the recorded resolution is a **counterexample**.
+- A public formalization of the "limit-exists" reading already exists:
+  `KitaKen1/erdos346-ratio-limit-lean` (sorry-free), imported into
+  `Vilin97/lean-pool` via PR #197. **Priority risk.**
+- Verdict: only worth attempting if we can show the *counterexample* reading is
+  the one JSP-000288 means, and that the existing proof does not already cover it.
+
+### `JSP-000434` — Erdős Problem 543 *(demoted)*
+
+- Resolution is an **asymptotic lower bound** `f(p) ≥ log₂p + (1/(2log2)+o(1))loglog p`
+  (Ma & Tang). Not a finite counterexample; expensive to formalize.
+
+### Other refutation-shaped entries (unverified)
+
+`JSP-000465` (Turán counterexample, internal OpenAI model), `JSP-000398`
+(uniform-distribution disproof, Sc69), `JSP-000788` (Ramsey negative answer),
+`JSP-001007` (residue-class negative answer), `JSP-000490` (no uniform colour
+bound), `JSP-001000`, `JSP-000383`. Each needs the same manual pass.
 
 ## Long term
 
 `JSP-000007` — **Poincaré conjecture**, Pinnacle tier, USD 1,000,000, solved by
-Perelman, **not formalized**. This is the only Pinnacle problem where the
-formalizer column is still open. It is a multi-year formalization effort
-(comparable to the Fermat's Last Theorem project), so it is tracked separately
-from the batch above.
+Perelman, **not formalized**. The only Pinnacle problem where the formalizer
+column is still open. A multi-year effort, tracked separately.
