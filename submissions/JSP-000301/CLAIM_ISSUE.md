@@ -40,7 +40,18 @@ JSP-000301's formalization source in the merged PR.)
 ## Follow-up contact email
 
 ```
-<FILL IN: a public address you control>
+e@awareness.market
+```
+
+## Priority disclosure
+
+```
+JSP-000301 is heavily contested: 51 submission PRs exist for it, the earliest
+created 2026-09-16. zjukop3 filed a priority note on PR #1959 citing an earlier
+proof commit (73282bae0d30, 2026-09-17T07:59:08Z). The earliest commit in this
+repository for JSP-000301 is 26e24e1c785c (2026-09-19T20:23:10Z). This claim is
+submitted so the record is complete; priority for the formalization role may rest
+with an earlier contributor and is not disputed here.
 ```
 
 ## Identity verification method
